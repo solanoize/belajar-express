@@ -1,5 +1,5 @@
 const express = require("express");
-const { BarangList, BarangCreate, BarangDetail, BarangUpdate, BarangDelete } = require("../controllers/barang.controller");
+const { BarangList, BarangCreate, BarangDetail, BarangUpdate, BarangDelete } = require("./barang.controller");
 
 const BarangRouter = express.Router();
 
