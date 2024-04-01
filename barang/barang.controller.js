@@ -1,21 +1,59 @@
-function BarangList(req, res) {
-  return res.status(200).json({ok: 1})
+const { BarangModel } = require("./barang.model");
+
+async function BarangList(req, res) {
+  try {
+    const data = await BarangModel.find();
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
 }
 
-function BarangCreate(req, res) {
-  return res.status(201).json({ok: 2})
+async function BarangCreate(req, res) {
+  try {
+    const data = req.body;
+    const result = await BarangModel.create(data)
+    return res.status(201).json(result)
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
 }
 
-function BarangDetail(req, res) {
-  return res.status(200).json({ok: 3})
+async function BarangDetail(req, res) {
+  try {
+    const data = await BarangModel.findOne({_id: req.params.id});
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
 }
 
-function BarangUpdate(req, res) {
-  return res.status(200).json({ok: 4})
+async function BarangUpdate(req, res) {
+  try {
+    const data = await BarangModel.findOneAndUpdate(
+      {_id: req.params.id}, 
+      req.body,
+      {new: true}
+    )
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
 }
 
-function BarangDelete(req, res) {
-  return res.status(204).json(null)
+async function BarangDelete(req, res) {
+  try {
+    await BarangModel.findOneAndDelete({_id: req.params.id});
+    return res.status(204).json(null);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
 }
 
 module.exports = {
