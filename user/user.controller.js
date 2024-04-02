@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { UserModel } = require("./user.model");
+const { UserNotExist, ValidatePassword, MakeJWTToken } = require("./user.service");
 
 async function UserCreate(req, res) {
   try {
@@ -13,6 +14,31 @@ async function UserCreate(req, res) {
   }
 }
 
+async function UserSignIn(req, res) {
+  try {
+    // user service not exist
+    const user = await UserNotExist(req.body.email)
+
+    // validate password
+    await ValidatePassword(req, user);
+    
+    const payload = {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName
+    }
+    // proses pembuatan token
+    const token = MakeJWTToken(payload); 
+
+    // return response
+    return res.status(200).json({ token })
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({detail: "Ups error"});
+  }
+}
+
 module.exports = {
-  UserCreate
+  UserCreate,
+  UserSignIn,
 }
