@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MONGO_URI = "mongodb://0.0.0.0:27017/api-belajar-express"
+const { MONGO_URI } = process.env
 
 const configDB = {
   useNewUrlParser: true
