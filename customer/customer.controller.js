@@ -1,10 +1,11 @@
+const { ExceptionHandler } = require("../libs/lib.exception");
 const { CustomerModel } = require("./customer.model");
 
 async function CustomerList(req, res) {
   try {
     
   } catch (error) {
-    
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -14,7 +15,7 @@ async function CustomerCreate(req, res) {
     return res.status(201).json(result);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 

@@ -1,4 +1,5 @@
 const { Pagination } = require("../libs/lib.common");
+const { ExceptionHandler } = require("../libs/lib.exception");
 const { BarangModel } = require("./barang.model");
 const { BarangSearch, BarangFilter } = require("./barang.search");
 
@@ -11,7 +12,7 @@ async function BarangList(req, res) {
     return res.status(200).json(paging);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -22,7 +23,7 @@ async function BarangCreate(req, res) {
     return res.status(201).json(result)
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -32,7 +33,7 @@ async function BarangDetail(req, res) {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -47,7 +48,7 @@ async function BarangUpdate(req, res) {
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -57,7 +58,7 @@ async function BarangDelete(req, res) {
     return res.status(204).json(null);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
