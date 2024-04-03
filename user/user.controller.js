@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { UserModel } = require("./user.model");
 const { UserNotExist, ValidatePassword, MakeJWTToken } = require("./user.service");
+const { ExceptionHandler } = require("../libs/lib.exception");
 
 async function UserCreate(req, res) {
   try {
@@ -10,7 +11,7 @@ async function UserCreate(req, res) {
     return res.status(201).json(payload);
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
@@ -34,7 +35,7 @@ async function UserSignIn(req, res) {
     return res.status(200).json({ token })
   } catch (error) {
     console.log(error);
-    return res.status(400).json({detail: "Ups error"});
+    return ExceptionHandler(error, res)
   }
 }
 
