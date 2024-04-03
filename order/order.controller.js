@@ -2,6 +2,7 @@ const { Pagination } = require("../libs/lib.common");
 const { ExceptionHandler, Error404 } = require("../libs/lib.exception");
 const { OrderModel } = require("./order.model");
 const { OrderSearch, OrderFilter } = require("./order.search");
+const { CheckItems } = require("./order.service");
 
 async function OrderList(req, res) {
   try {
@@ -18,7 +19,8 @@ async function OrderList(req, res) {
 
 async function OrderCreate(req, res) {
   try {
-    const result = await OrderModel.create(req.body);
+    await CheckItems(req.cleanedData);
+    const result = await OrderModel.create(req.cleanedData);
     return res.status(201).json(result);
   } catch (error) {
     console.log(error);
