@@ -43,6 +43,8 @@ async function Pagination(req, res, model) {
 
 }
 
+
+
 module.exports = {
   Pagination
 }
