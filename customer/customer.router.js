@@ -9,12 +9,14 @@ const CustomerRouter = express.Router();
 CustomerRouter.post('/', [
   IsAuthenticated,
   Validate([
-    CustomerNomorValidator(),
+    CustomerNomorValidator(false),
     CustomerNamaValidator(),
     CustomerTeleponValidator(),
     CustomerAlamatValidator()
   ])
 ], CustomerCreate)
+
+
 
 module.exports = {
   CustomerRouter
