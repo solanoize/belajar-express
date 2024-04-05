@@ -1,3 +1,5 @@
+const { Error404 } = require("./lib.exception");
+
 function Previous(page) {
   if (page - 1 <= 0) {
     return null;
@@ -43,6 +45,45 @@ async function Pagination(req, res, model) {
 
 }
 
+
+const SearchBackend = (req, model, fields) => {
+  const { search } = req.query;
+
+  if (search) {
+    const filterSet = [];
+    for (let field of fields) {
+      filterSet.push({[field]: { $regex: ".*" + search + ".*", $options: 'i' }})
+    }
+
+    return model.find({$or: filterSet})
+  }
+
+  return model;
+}
+
+const FilterBackend = (req, model) => {
+  const { field, value } = req.query;
+
+  if (field && value) {
+    return model.find({ [field]: value })
+  }
+
+  return model;
+}
+
+const GetOr404 = async (model, options) => {
+  const result = await model.findOne(options);
+  
+  if (!result) {
+    throw new Error404("Data not found")
+  }
+
+  return result;
+}
+
 module.exports = {
-  Pagination
+  Pagination,
+  SearchBackend,
+  FilterBackend,
+  GetOr404
 }

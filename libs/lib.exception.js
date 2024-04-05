@@ -20,9 +20,10 @@ class Error401 extends Error {
 }
 
 const ExceptionHandler = (error, res) => {
+  console.log(error)
   switch (error.name) {
     case "MongoServerError":
-      return res.status(500).json({ detail: error.message })
+      return res.status(403).json({ detail: "Pastikan data yang dikirim benar dan tidak berisi duplikasi data!" })
     case "CastError":
       return res.status(500).json({detail: "Pastikan format id benar"})
     case "Error404":    
