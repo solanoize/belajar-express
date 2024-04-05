@@ -1,106 +1,118 @@
 const { body } = require("express-validator");
 const { BarangModel } = require("./barang.model");
 
+
 const BarangIDValidator = (target="nomor") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .isMongoId()
-    .withMessage("Format ID tidak valid.")
-    .bail()
-    .notEmpty()
-    .withMessage("Field tidak boleh kosong.")
-    .bail()
-    .custom(async (id) => {
-      const barang = await BarangModel.findOne({_id: id});
-      if (!barang) {
-        // digunakan untuk module lain
-        // untuk mereferensikan barang
-        // ada atau tidaknya id
-        throw new Error("Id barang tidak tersedia")
-      }
-    }).bail()
+  const validator = body(target)
+  
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.isMongoId().withMessage("Format ID tidak valid.").bail()
+  validator.notEmpty().withMessage("Field tidak boleh kosong.").bail()
+  
+  validator.custom(async (id) => {
+    const barang = await BarangModel.findOne({_id: id});
+    if (!barang) {
+      throw new Error("Id barang tidak tersedia")
+    }
+  }).bail();
+
+  return validator;
 }
 
-const BarangNomorValidator = (reverse=false, target="nomor") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .notEmpty()
-    .withMessage("Field tidak boleh kosong.")
-    .bail()
-    .isLength({ min: 6, max: 6 })
-    .withMessage("Field hanya menerima tepat 6 karakter.")
-    .bail()
-    .custom(async (nomor) => {
+const BarangNomorValidator = (
+  optional=false, 
+  forCreate=true, 
+  forModule=false, 
+  target="nomor"
+) => {
+  const validator = body(target)
+
+  if (optional) {
+    validator.optional();
+  }
+
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.notEmpty().withMessage("Field tidak boleh kosong.").bail()
+  validator.isLength({ min: 6, max: 6 }).withMessage("Field hanya menerima tepat 6 karakter.").bail();
+
+  if (forCreate) {
+    validator.custom(async (nomor) => {
       const barang = await BarangModel.findOne({nomor});
-      if (reverse && !barang) {
-        // digunakan untuk module lain
-        // untuk mereferensikan barang
-        // ada atau tidaknya nomor
-        throw new Error("Nomor tidak tersedia")
+      if (barang) {
+        throw new Error("Nomor sudah digunakan.")
       }
+    }).bail();
+  }
 
-      if (!reverse && barang) {
-        // digunakan untuk module barang saat ini
-        // untuk mencegah duplikasi nomor barang
-        throw new Error("Nomor sudah digunakan")
+  if (forModule) {
+    validator.custom(async (nomor) => {
+      const barang = await BarangModel.findOne({nomor});
+      if (!barang) {
+        throw new Error("Nomor tidak tersedia.")
       }
-    })
+    }).bail();
+  }
+
+  return validator;
 }
 
-const BarangNamaValidator = (target="nama") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .notEmpty()
-    .withMessage("Nama tidak boleh kosong.")
-    .bail()
-    .isLength({ min: 5, max: 100 })
+const BarangNamaValidator = (optional=false, target="nama") => {
+  const validator = body(target);
+
+  if (optional) {
+    validator.optional();
+  }
+  
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.notEmpty().withMessage("Nama tidak boleh kosong.").bail()
+  validator.isLength({ min: 5, max: 100 })
     .withMessage("Nama tidak boleh kurang dari 5 dan lebih dari 100 karakter")
     .bail()
+
+  return validator;
 }
 
-const BarangSatuanValidator = (target="nama") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .notEmpty()
-    .withMessage("Nama tidak boleh kosong.")
-    .bail()
-    .isLength({ min: 1, max: 10})
+const BarangSatuanValidator = (optional=false, target="nama") => {
+  const validator = body(target);
+
+  if (optional) {
+    validator.optional();
+  }
+
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.notEmpty().withMessage("Nama tidak boleh kosong.").bail()
+  validator.isLength({ min: 1, max: 10})
     .withMessage("Nama tidak boleh kurang dari 5 dan lebih dari 10 karakter")
-    .bail()
+    .bail();
+  
+  return validator;
 }
 
-const BarangHargaJualValidator = (target="hargaJual") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .notEmpty()
-    .withMessage("Field tidak boleh kosong.")
-    .bail()
-    .isInt({min: 1000})
-    .withMessage("Format harus bilangan bulat minimum 1000.")
-    .bail()
+const BarangHargaJualValidator = (optional=false, target="hargaJual") => {
+  const validator = body(target);
+  
+  if (optional) {
+    validator.optional();
+  } 
+
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.notEmpty().withMessage("Field tidak boleh kosong.").bail()
+  validator.isInt({min: 1000}).withMessage("Format harus bilangan bulat minimum 1000.").bail();
+
+  return validator;
 }
 
-const BarangStokValidator = (target="stok") => {
-  return body(target)
-    .exists()
-    .withMessage("Field harus tersedia!")
-    .bail()
-    .notEmpty()
-    .withMessage("Field tidak boleh kosong.")
-    .bail()
-    .isInt({min: 1})
-    .withMessage("Format harus bilangan bulat minimum 1.")
-    .bail()
+const BarangStokValidator = (optional=false, target="stok") => {
+  const validator = body(target)
+  
+  if (optional) {
+    validator.optional()
+  }
+  
+  validator.exists().withMessage("Field harus tersedia!").bail()
+  validator.notEmpty().withMessage("Field tidak boleh kosong.").bail()
+  validator.isInt({min: 1}).withMessage("Format harus bilangan bulat minimum 1.").bail()
+  return validator;
 }
 
 module.exports = {

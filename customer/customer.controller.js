@@ -49,9 +49,20 @@ async function CustomerUpdate(req, res) {
   }
 }
 
+async function CustomerDelete(req, res) {
+  try {
+    const result = await GetOr404(CustomerModel, {_id: req.params.id})
+    result.delete();
+    return res.status(204).json(null);
+  } catch (error) {
+    return ExceptionHandler(error, res)
+  }
+}
+
 module.exports = {
   CustomerList,
   CustomerCreate,
   CustomerDetail,
   CustomerUpdate,
+  CustomerDelete
 }
