@@ -16,20 +16,20 @@ OrderRouter.post('/', [
     OrderNomorValidator(),
     OrderTanggalValidator(),
     OrderCustomerValidator(),
-    CustomerNomorValidator(true, "customer.nomor"),
-    CustomerIDValidator("customer._id"),
-    CustomerNamaValidator("customer.nama"),
-    CustomerAlamatValidator("customer.alamat"),
-    CustomerTeleponValidator("customer.telepon"),
+    CustomerNomorValidator(false, false, true,"customer.nomor"),
+    CustomerIDValidator(false, "customer._id"),
+    CustomerNamaValidator(false, "customer.nama"),
+    CustomerAlamatValidator(false, "customer.alamat"),
+    CustomerTeleponValidator(false, "customer.telepon"),
     OrderItemsValidator(),
     OrderItemsQtyValidator(),
     OrderItemsSubtotalValidator(),
     BarangNomorValidator(true, "items.*.nomor"),
-    BarangIDValidator("items.*._id"),
-    BarangNamaValidator("items.*.nama"),
-    BarangSatuanValidator("items.*.satuan"),
-    BarangHargaJualValidator("items.*.hargaJual"),
-    BarangStokValidator("items.*.stok")
+    BarangIDValidator(false, false, true, "items.*._id"),
+    BarangNamaValidator(false, "items.*.nama"),
+    BarangSatuanValidator(false, "items.*.satuan"),
+    BarangHargaJualValidator(false, "items.*.hargaJual"),
+    BarangStokValidator(false, "items.*.stok")
   ])
 ], OrderCreate)
 OrderRouter.get('/:id', [IsAuthenticated], OrderDetail)

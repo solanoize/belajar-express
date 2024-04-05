@@ -20,7 +20,7 @@ class Error401 extends Error {
 }
 
 const ExceptionHandler = (error, res) => {
-  console.log(error)
+  Logging.error(error.message);
   switch (error.name) {
     case "MongoServerError":
       return res.status(403).json({ detail: "Pastikan data yang dikirim benar dan tidak berisi duplikasi data!" })

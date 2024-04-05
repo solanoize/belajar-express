@@ -1,11 +1,13 @@
 const { validationResult, matchedData } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
+const { Logging, LOG_ERROR } = require("./lib.logging");
 
 const IsAuthenticated = (req, res, next) => {
   const token = req.headers["authorization"];
 
   if (!token) {
+    Logging.log("error", "Token is required for authentication")
     return res.status(401).send({detail: "Token is required for authentication"})
   }
 
@@ -13,6 +15,7 @@ const IsAuthenticated = (req, res, next) => {
     const decode = jwt.verify(token, process.env.TOKEN_KEY);
     req.user = decode;
   } catch (error) {
+    Logging.log("error", "Invalid token")
     return res.status(401).send({ detail: "Invalid token" })
   } 
 
@@ -20,22 +23,19 @@ const IsAuthenticated = (req, res, next) => {
 }
 
 const Validate = (validations) => {
-  return async (req, res, next) => {
+  return async (err, req, res, next) => {
 
     for (let validation of validations) {
       await validation.run(req);
       // if (result.errors.length) break;
     }
-
     
     const errors = validationResult(req);
-    console.log(errors)
-   const errs =  _.chain(errors.errors).groupBy("path").value()
+    const errs =  _.chain(errors.errors).groupBy("path").value()
     if (errors.isEmpty()) {
       req.cleanedData = matchedData(req);
       return next();
     }
-
     res.status(400).json(errs);
   };
 }

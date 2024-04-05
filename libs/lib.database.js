@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { LOG_INFO, Logging, LOG_ERROR } = require("./lib.logging");
 
 const { MONGO_URI } = process.env
 
@@ -8,10 +9,10 @@ const configDB = {
 
 const MongoDBConnection = () => {
   mongoose.connect(MONGO_URI, configDB).then(() => {
-    console.log("Berhasil terhubung ke database mongoDB")
+    Logging.log(LOG_INFO, "Berhasil terhubung ke database mongoDB")
   }).catch((error) => {
-    console.log("Gagal terkoneksi database mongoDB");
-    console.error(error);
+    Logging.log(LOG_ERROR, "Gagal terkoneksi database mongoDB")
+    Logging.log(LOG_ERROR, error.message)
   })
 }
 

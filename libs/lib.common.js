@@ -1,4 +1,5 @@
 const { Error404 } = require("./lib.exception");
+const { Logging } = require("./lib.logging");
 
 function Previous(page) {
   if (page - 1 <= 0) {
@@ -73,8 +74,9 @@ const FilterBackend = (req, model) => {
 
 const GetOr404 = async (model, options) => {
   const result = await model.findOne(options);
-  
+
   if (!result) {
+    Logging.error("Data not found")
     throw new Error404("Data not found")
   }
 

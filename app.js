@@ -8,12 +8,22 @@ const { ROUTER_BASE_CUSTOMER } = require("./customer/customer.config");
 const { CustomerRouter } = require("./customer/customer.router");
 const { ROUTER_BASE_ORDER } = require("./order/order.config");
 const { OrderRouter } = require("./order/order.router");
+const { Logging } = require("./libs/lib.logging");
 
 const app = express();
 
 MongoDBConnection();
 
 app.use(express.json());
+
+/**
+ * Logging app
+ */
+app.use((req, res, next) => {
+  // Log an info message for each incoming request
+  Logging.info(`Received a ${req.method} request for ${req.url}`);
+  return next();
+});
 
 app.use(ROUTER_BASE_BARANG, BarangRouter);
 app.use(ROUTER_BASE_USER, UserRouter);

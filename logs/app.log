@@ -1,0 +1,49 @@
+2024-04-05T08:51:03.657Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:55:34.601Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:55:56.668Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:57:13.516Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:57:22.715Z info: Received a GET request for /barang/660ab5d44313b10f491b0d4ca
+2024-04-05T08:58:24.750Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:58:25.970Z info: Received a GET request for /barang/660ab5d44313b10f491b0d4ca
+2024-04-05T08:58:54.730Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:58:56.435Z info: Received a GET request for /barang/660ab5d44313b10f491b0d4ca
+2024-04-05T08:59:25.342Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:59:31.208Z info: Received a GET request for /barang/660ab5d44313b10f491b0d4ca
+2024-04-05T08:59:50.454Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:59:56.056Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T08:59:56.716Z info: Received a GET request for /barang/660ab5d44313b10f491b0d4ca
+2024-04-05T09:00:10.028Z info: Received a GET request for /barang?page
+2024-04-05T09:00:24.866Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:01:06.755Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:01:09.605Z info: Received a POST request for /barang
+2024-04-05T09:01:09.693Z error: undefined
+2024-04-05T09:01:33.652Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:01:35.026Z info: Received a POST request for /barang
+2024-04-05T09:01:35.054Z error: [object Object]
+2024-04-05T09:02:19.597Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:02:22.222Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:02:23.471Z info: Received a POST request for /barang
+2024-04-05T09:02:23.495Z error: undefined
+2024-04-05T09:02:34.301Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:02:35.175Z info: Received a POST request for /barang
+2024-04-05T09:02:35.198Z error: undefined
+2024-04-05T09:02:55.249Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:02:56.400Z info: Received a POST request for /barang
+2024-04-05T09:02:56.421Z error: Validation error
+2024-04-05T09:03:42.490Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:03:45.858Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:04:06.414Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:04:10.733Z info: Received a POST request for /barang
+2024-04-05T09:04:14.523Z info: Received a POST request for /barang
+2024-04-05T09:04:35.082Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:04:36.190Z info: Received a POST request for /barang
+2024-04-05T09:04:56.660Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T09:05:05.713Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:21:44.594Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:22:12.010Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:24:24.065Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:24:49.069Z info: Received a POST request for /customer
+2024-04-05T10:25:55.429Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:26:08.092Z info: Berhasil terhubung ke database mongoDB
+2024-04-05T10:26:10.463Z info: Received a POST request for /customer
+2024-04-05T10:26:10.466Z error: Invalid token
