@@ -1,10 +1,5 @@
 const winston = require("winston");
 
-const LOG_ERROR = 'error';
-const LOG_WARN = 'warn';
-const LOG_INFO = 'info';
-
-
 const Logging = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
@@ -20,8 +15,5 @@ const Logging = winston.createLogger({
 });
 
 module.exports = {
-  Logging,
-  LOG_ERROR,
-  LOG_INFO,
-  LOG_WARN
+  Logging
 }

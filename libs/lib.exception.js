@@ -1,3 +1,5 @@
+const { Logging } = require("./lib.logging");
+
 class Error404 extends Error {
   constructor(message) {
     super(message);

@@ -37,9 +37,12 @@ async function BarangDetail(req, res) {
 
 async function BarangUpdate(req, res) {
   try {
-    const result = await GetOr404(BarangModel, {_id: req.params.id})
-    result.set(req.cleanedData)
-    result.save();
+    await GetOr404(BarangModel, {_id: req.params.id})
+    const result = await BarangModel.findOneAndUpdate(
+      {_id: req.params.id}, 
+      req.body, 
+      {new: true}
+    );
     return res.status(200).json(result);
   } catch (error) {
     console.log(error);

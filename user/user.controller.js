@@ -19,7 +19,7 @@ async function UserSignIn(req, res) {
   try {
     // user service not exist
     const user = await UserNotExist(req.body.email)
-
+    console.log("terpanggil")
     // validate password
     await ValidatePassword(req, user);
     

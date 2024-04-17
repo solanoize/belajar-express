@@ -1,7 +1,7 @@
 const { validationResult, matchedData } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
-const { Logging, LOG_ERROR } = require("./lib.logging");
+const { Logging } = require("./lib.logging");
 
 const IsAuthenticated = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -32,6 +32,8 @@ const Validate = (validations) => {
     
     const errors = validationResult(req);
     const errs =  _.chain(errors.errors).groupBy("path").value()
+
+    console.log("test", errors.isEmpty())
     if (errors.isEmpty()) {
       req.cleanedData = matchedData(req);
       return next();

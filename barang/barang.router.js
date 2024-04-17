@@ -17,16 +17,7 @@ BarangRouter.post('/', [
   ])
 ], BarangCreate);
 BarangRouter.get('/:id', [IsAuthenticated], BarangDetail);
-BarangRouter.put('/:id', [
-  IsAuthenticated,
-  Validate([
-    BarangNomorValidator(true, false, false),
-    BarangNamaValidator(true),
-    BarangSatuanValidator(true),
-    BarangHargaJualValidator(true),
-    BarangStokValidator(true)
-  ])
-], BarangUpdate);
+BarangRouter.put('/:id', [IsAuthenticated,], BarangUpdate);
 BarangRouter.delete('/:id', [IsAuthenticated], BarangDelete);
 
 module.exports = {
