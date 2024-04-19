@@ -16,7 +16,7 @@ async function CustomerList(req, res) {
 
 async function CustomerCreate(req, res) {
   try {
-    const result = await CustomerModel.create(req.cleanedData)
+    const result = await CustomerModel.create(req.body)
     return res.status(201).json(result);
   } catch (error) {
     console.log(error);
@@ -34,12 +34,21 @@ async function CustomerDetail(req, res) {
   }
 }
 
+async function CustomerDetailByNomor(req, res) {
+  try {
+    const result = await GetOr404(CustomerModel, {nomor: req.params.nomor});
+    return res.status(200).json(result);
+  } catch (error) {
+    return ExceptionHandler(error, res)
+  }
+}
+
 async function CustomerUpdate(req, res) {
   try {
     await GetOr404(CustomerModel, {_id: req.params.id});
     const result = await CustomerModel.findOneAndUpdate(
       { _id: req.params.id },
-      req.cleanedData,
+      req.body,
       {new: true}
     )
 
@@ -51,8 +60,8 @@ async function CustomerUpdate(req, res) {
 
 async function CustomerDelete(req, res) {
   try {
-    const result = await GetOr404(CustomerModel, {_id: req.params.id})
-    result.delete();
+    await GetOr404(CustomerModel, {_id: req.params.id})
+    await CustomerModel.findOneAndDelete({_id: req.params.id})
     return res.status(204).json(null);
   } catch (error) {
     return ExceptionHandler(error, res)
@@ -64,5 +73,6 @@ module.exports = {
   CustomerCreate,
   CustomerDetail,
   CustomerUpdate,
-  CustomerDelete
+  CustomerDelete,
+  CustomerDetailByNomor
 }

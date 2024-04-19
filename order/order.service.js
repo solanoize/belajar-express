@@ -16,7 +16,7 @@ const CheckItems = async (cleanedData) => {
     total += barang.hargaJual * item.qty;
   }
 
-  if (!(total === cleanedData)) {
+  if (!(total === cleanedData.total)) {
     throw new Error403("Total tidak valid, permintaan ditolak untuk diproses!")
   }
 

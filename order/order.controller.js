@@ -19,8 +19,8 @@ async function OrderList(req, res) {
 
 async function OrderCreate(req, res) {
   try {
-    await CheckItems(req.cleanedData);
-    const result = await OrderModel.create(req.cleanedData);
+    await CheckItems(req.body);
+    const result = await OrderModel.create(req.body);
     return res.status(201).json(result);
   } catch (error) {
     console.log(error);
